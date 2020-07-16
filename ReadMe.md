@@ -22,7 +22,7 @@ We want to be able to simulate a human arm in ROS and Gazebo and have associated
 
 **2.** Run through and replicate tutorial found on Github for Simulating a 2-wheeled Differential Drive Robot
 
-**3.** Come out with a roadmap for simulating a human arm
+**3.** Develop a roadmap for simulating a human arm
 
 ## Week 3 Goals
 
