@@ -88,6 +88,9 @@ $ rostopic list
 ```
 We should see a list of topics that are associated with turtle sim. This is what we can use to understand how ROS communicates with other aspects of itself
 
+## Step 7:
+
+
 ## Step 4: Understanding the Main Component of URDF Files
 Two basic URDF components are used to describe robot models: Links and Joints. Link components are used to describe the physical properties (dimensions, origin position, color, etc) of a rigid body. Links are connected together by joints, which describe kinematic and dynamic properties for the connection (which links are connected to each other, the types of joint, axes o ration, amount of friction, damping, etc).
 
