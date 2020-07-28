@@ -1,0 +1,9 @@
+<launch>
+
+    <!--LAUNCH ROBOT MODEL IN GAZEBO-->
+    <include file="$(find test_robot)/launch/testrobot_gazebo.launch"/>
+
+
+    <!--Start Nodes-->
+    <node name = "teleop_twist_keyboard" pkg="test_robot" type="teleop_twist_keyboard.py" output ="screen"/>
+</launch>
