@@ -88,15 +88,56 @@ $ rostopic list
 ```
 We should see a list of topics that are associated with turtle sim. This is what we can use to understand how ROS communicates with other aspects of itself
 
-## Step 7:
+## Step 6: Adjusting the Simulation
+We are now going to adjust the turtle sim itself. We are going to adjust the turtlesim but using the rosparam command which adjusts the parameters ROS is operating in.
+Use the command
+```
+$rosparam list
+```
+To get a list of the parameters that already exist.
+
+Now we will use 
+
+```
+$ rosparam get /
+```
+
+To get the actual data values for the parameters.
+
+To adjust the background run this set of commands.
+```
+$ rosparam set background_b 0
+ $ rosparam set background_g 0 
+ $ rosparam set background_r 255 
+ $ rosservice call /clear 
+```
+This set of commands will change the bacckground of the turtle sim to red. You can mess around with the color settings to get whatever colo you would like.
+
+## Step 7: Movement in Turtle Sim
+
+This command lets us see the movement topics associated with Turtle Sim
+```
+$ rosmsg show turtlesim/Pose
+```
+And this command allows us to see the actual position of the turtle
+```
+$ rostopic echo /turtle1/pose 
+```
+
+This will give us the coordinates of the Turtle in the simulaiton. From here we use
+```
+$ rosservice call /turtle1/teleport_relative (x coord) (y coord)
+```
+
+To move the turtle. 
 
 
-## Step 4: Understanding the Main Component of URDF Files
+## Step 8: Understanding the Main Component of URDF Files
 Two basic URDF components are used to describe robot models: Links and Joints. Link components are used to describe the physical properties (dimensions, origin position, color, etc) of a rigid body. Links are connected together by joints, which describe kinematic and dynamic properties for the connection (which links are connected to each other, the types of joint, axes o ration, amount of friction, damping, etc).
 
 The URDF file contains information regarding a set of link elements, and a set joint elements that connect the links together.
 
-## Step 5: Creating a robot chassis
+## Step 9: Creating a robot chassis
 The first component of the robot we're building is a chassis box. This can be thought of as a "base" link from which all subsequent links and joints will stem from.
 
 In a text editor type the following code and save as a .urdf file in /robot_sim/src/simulations/urdf
@@ -126,7 +167,7 @@ The base_link's initial position (origin) is at (x,y,z)=(0,0,0) and  rpy (roll, 
 
 Visually, the base link is represented as a box with dimensions: 0.5 meters length, 0.5 meters width, and 0.25 meters height.
 
-## Step 6: Create Launch File to Visualize URDF File Information
+## Step 10: Create Launch File to Visualize URDF File Information
 roslaunch is a tool in ROS that simplifies the process of launching ROS nodes and setting parameters on the ROS Parameter Server.
 
 Create a "launch" directory under the simulations package:
@@ -177,7 +218,7 @@ rViz is essentially a 3D visualization tool for ROS.
 
 Documentation: wiki.ros.org/rviz
 
-## Step 7: SOURCE Bash Files 
+## Step 11: SOURCE Bash Files 
 Before visualizing the file and using roslaunch, make sure your files are sourced properly.
 ```
 echo "source ~/robot_sim/devel/setup.bash" >> ~/.bashrc
@@ -185,7 +226,7 @@ source ~/.bashrc
 
 ```
 
-## Step 8: Visualize File in rViz
+## Step 12: Visualize File in rViz
 Enter below code to open the URDF file in rViz:
 
 ```
@@ -201,7 +242,7 @@ This should display a red chassis in the middle of your rViz workspace, and any 
 - The fixed frame is a transform frame where the origin (center) of the grid is located
 - In the URDF Model, <origin> defines the reference frame of the visual element with respect to the reference frame of the link. In this model, the visual element (box) has an origin at the center of its geometry (half of the box is above the grid plane and half is below)
 
-## Step 9: Adding Wheels to URDF Model
+## Step 13: Adding Wheels to URDF Model
 
 As mentioned before, whenever we add new link elements to the URDF file, we shouold also add joint elements to describe the relationships between the links. Joint elements are necessary to define the flexibility/inflexibility of the joints. There are 6 types of joints that can be defined in the URDF model.
 
@@ -272,7 +313,7 @@ The code below shows how to add wheels to the chassis.
   
 **6.** The joint elements define the complete kinematic model of the robot
 
-## Step 10: Adding a caster
+## Step 14: Adding a caster
 Now, we will be adding a caster element to the front of the robot to balance the chassis. This caster only serves as a visual element, and will not be defined as a joint. Visually, it will slide along the ground plane as the wheels of the robot move.
 
 The Code below adds a caster element before the wheel definitions:
@@ -336,7 +377,7 @@ The Code below adds a caster element before the wheel definitions:
 **Important Things to Note**
 **1.** The caster is visually defined as a sphere with radius 0.05 meters. The center of the caster is at 0.2 meters in the x direction and -0.125 meters in the z direction with respect to the origin of the base_link
 
-## Step 11: Adding Color to the Model
+## Step 15: Adding Color to the Model
 Currently, our robot is completely red with no distinctive parts. The code below changes the color of the chassis to blue and the wheels to red.
 ```
 <?xml version='1.0'?>
@@ -406,7 +447,7 @@ Currently, our robot is completely red with no distinctive parts. The code below
 **1.** Once a color is defined as a material name, that material name can just be listed in the code instead of redefining the properties of the color -> Look at how the black color is defined in the L and R wheels
 **2.** The <material> tag can define <color> in terms of red, green, blue, and alpha, with each being in the range [0,1]. Alpha represents the transparency of the color with 1 being opague and 0 being transparent. Once specified and labeled with a name, the material can be reused without specifically applying color values
   
-## Step 12: Adding Collisions
+## Step 16: Adding Collisions
 Even though we've defined all of our visual elements, we need to add a collision property that identifies the boundary of the robot for Gazebo's collision detection engine. Without this, Gazebo can't recognize the boundaries of a robot. The collision property must be defined for each visual element:
 ```
 <?xml version='1.0'?>
@@ -505,7 +546,7 @@ Even though we've defined all of our visual elements, we need to add a collision
 
 ```
 
-## Step 13: Moving the Robot Wheels in rViz (This doesn't work for some reason, need to look into why)
+## Step 17: Moving the Robot Wheels in rViz (This doesn't work for some reason, need to look into why)
 Once we have our right and left wheel joint definitions, it possible to use the joint_state_publisher and robot_state_publisher nodes defined in our launch file to control the movement of the robot.
 
 The joint_state_publisher node, as defined before, finds all of the non-fixed joints and publishes a JointState message with all those joints defined. We can bring up a GUI interface to change the values of the JointState message to see the robot move. Currently, the JointState message values are constant.
@@ -515,7 +556,7 @@ roslaunch simulations testrobot_rviz.launch model:=test_robot5.urdf gui:=True
 ```
 
 
-## Step 14: Adding Physical Properties to Robot
+## Step 18: Adding Physical Properties to Robot
 Before the robot can be launched in Gazebo, we need to specify physical properties such as mass and inertia. These properties are required by Gazebo's physics engine. Specifically, every simulated <link> elements needs an <inertial> tag.
 
 The two elements of the inertial element are:
@@ -643,7 +684,7 @@ The following code contains the inertial matrices for each of the inertial matri
 ```
 Adding inertial properties doesn't change what happens in rviz.
 
-## Step 15: Exploring our URDF Model with basic command line tools (THIS is ALSO NOT WORKING)
+## Step 19: Exploring our URDF Model with basic command line tools (THIS is ALSO NOT WORKING)
 ROS has command-line tools to help verify and visualize information from URDF models. 
 
 First, make sure you have the necessary tools installed:
@@ -663,7 +704,7 @@ this tool creates a graphviz diagram of a URDF file and a diagram in .pdf format
 ```
 urdf_to_graphiz test_robot6.urdf
 ```
-## Step 16: Preparing the URDF File for Gazebo
+## Step 20: Preparing the URDF File for Gazebo
 Gazebo expects the robot model to be in SDF format. SDF is similar to URDF and Gazebo will automatically convert URDF models, however, it requires certain descriptive tags within the URDF file code for a successful conversion.
 
 The <gazebo> tag is added to the URDF model to specify additional elements needed for identifying elements found in the SDF format. If a <gazebo> tag is used independent of the reference= property, then it is assumed that the gazebo element refers to the whole robot model. Other <gazebo> elements may be added to links and joints to specify the physics, however, for our curernt purposes we will stick to just specifying color.
@@ -792,7 +833,7 @@ The <gazebo> tag is added to the URDF model to specify additional elements neede
 ```
 ^ Save the above code in a file titled: "test_robot.gazebo" under the URDF folder in simulations.
 
-## Step 17: Creating the simplest world file for Gazebo
+## Step 21: Creating the simplest world file for Gazebo
 We now need to create a simple world file to launch our test robot into. To begin, create a new directory under simulations/src titled "worlds"
 
 ``` 
@@ -829,7 +870,7 @@ This file is basically creating a world with a name: "default" and is including 
 
 
 
-## Step 17: Creating a Launch File for Visualizing URDF in Gazebo
+## Step 22: Creating a Launch File for Visualizing URDF in Gazebo
 Create a new file titled, "testrobot_gazebo.launch" in the launch folder. This launch file is essentially calling the URDF file we have created and launching it into the customized world file we have created.
 
 ```
@@ -856,12 +897,14 @@ Create a new file titled, "testrobot_gazebo.launch" in the launch folder. This l
 ```
 The above code is finding the testrobot.world file within the simulations/worlds directory as well as the test_robot.gazebo file within the simulations/urdf directory.
 
-## Step 18: Launch Test Robot Model in Gazebo
+## Step 23: Launch Test Robot Model in Gazebo
 Following code should launch our robot model in Gazebo:
 ```
 roslaunch simulations testrobot_gazebo.launch
 ```
+## Step 24: Moving The Robot
 
+Now that the robot has been simulated in gazebo we need to start with making the robot move.
 
 
 
