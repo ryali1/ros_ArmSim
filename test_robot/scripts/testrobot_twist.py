@@ -28,4 +28,4 @@ if __name__ == '__main__':
     except rospy.ROSInterruptException:
       pass
   else:
-    print("Usage: rosrun testrobot_teleop testrobot_twist")
+    print("Usage: rosrun testrobot testrobot_twist.py")
