@@ -44,7 +44,7 @@ mkdir urdf
 cd urdf
 ```
 
-## Step 4:Using Turtle Sim.
+## Step 4: Using Turtle Sim.
 
 Turtle Sim is a default ROS package that will help us understand some of the fundementals of ROS.
 
@@ -908,7 +908,29 @@ roslaunch simulations testrobot_gazebo.launch
 
 ## Step 24: Moving The Robot
 
-Now that the robot has been simulated in gazebo we need to start with making the robot move.
+Now that the robot has been simulated in gazebo we need to start with making the robot move. The first step is using the differntial drive pulgin that comes with ROS. You need to copy and paste this code into the gazebo file for the test robot
+```
+
+```
+
+```
+code for python twist with key board
+```
+
+name this file teleop_twist.py
+
+this is the code to launch it
+```
+
+```
+name this testrobot_twist.launch
+
+then in the terminal type
+```
+$ roslaunch test_robot testrobot_twist.launch
+```
+
+If you have a different folder to store your files in. use that folder location instead of test_robot. nwo you can use the keys on your keyboard to move objects around.
 
 
 
