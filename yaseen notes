@@ -1,0 +1,2 @@
+arm command that works
+roslaunch test_robot rrbot_rviz.launch model:=rrbot.xacro
