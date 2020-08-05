@@ -13,9 +13,15 @@
      <inertia ixx="${i_value}" ixy="0.0" ixz="0.0"        iyy="${i_value}" iyz="0.0"        izz="${i_value}" />      
      </inertial>  
      </xacro:macro>
+  <link name="world"/>
 
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
  <!-- Base Link --> 
-   <link name="base_link">   
+   <link name="base_link"> 
+   <parent link="world" />  
     <visual>     
      <origin xyz="0 0 ${height1/2}" rpy="0 0 0" />  
       <geometry>       
