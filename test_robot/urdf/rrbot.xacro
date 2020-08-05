@@ -16,35 +16,35 @@
     <material>Gazebo/Black</material>
   </gazebo>
   <!-- Link3 -->
-  <gazebo reference="link3">
+   <gazebo reference="link3">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Orange</material>
-  </gazebo>
-  <material name="black">
+       </gazebo>
+    <material name="black">
     <color rgba="0.0 0.0 0.0 1.0"/>
-  </material>
-  <material name="blue">
+   </material>
+   <material name="blue">
     <color rgba="0.0 0.0 0.8 1.0"/>
-  </material>
-  <material name="green">
-    <color rgba="0.0 0.8 0.0 1.0"/>
-  </material>
-  <material name="grey">
-    <color rgba="0.2 0.2 0.2 1.0"/>
-  </material>
-  <material name="orange">
-    <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
-  </material>
-  <material name="brown">
-    <color rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
-  </material>
-  <material name="red">
-    <color rgba="0.8 0.0 0.0 1.0"/>
-  </material>
-  <material name="white">
-    <color rgba="1.0 1.0 1.0 1.0"/>
-  </material>
+    </material>
+    <material name="green">
+      <color rgba="0.0 0.8 0.0 1.0"/>
+    </material>
+    <material name="grey">
+      <color rgba="0.2 0.2 0.2 1.0"/>
+    </material>
+    <material name="orange">
+      <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
+    </material>
+    <material name="brown">
+      <color rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
+    </material>
+    <material name="red">
+      <color rgba="0.8 0.0 0.0 1.0"/>
+    </material>
+    <material name="white">
+      <color rgba="1.0 1.0 1.0 1.0"/>
+    </material>
   <!-- Used for fixing robot to Gazebo 'base_link' -->
   <link name="world"/>
   <joint name="fixed" type="fixed">
