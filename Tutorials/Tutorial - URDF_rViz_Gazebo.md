@@ -24,6 +24,7 @@ sudo apt-get install ros-melodic-catkin
 ```
 
 ## Step 2: Create directory for simulations
+
 Within the new catkin directory, create a ros package for simulations and build the packages in the catkin workspace.
 
 ```
@@ -34,6 +35,7 @@ cd ~/catkin_ws
 catkin_make
 
 ```
+
 ## Step 3: Create a directory for storing URDF Files
 Within the newly created simulations directory, create a new directory for storing URDF Files
 ```
@@ -614,6 +616,7 @@ this tool creates a graphviz diagram of a URDF file and a diagram in .pdf format
 ```
 urdf_to_graphiz test_robot6.urdf
 ```
+
 ## Step 16: Preparing the URDF File for Gazebo
 Gazebo expects the robot model to be in SDF format. SDF is similar to URDF and Gazebo will automatically convert URDF models, however, it requires certain descriptive tags within the URDF file code for a successful conversion.
 
