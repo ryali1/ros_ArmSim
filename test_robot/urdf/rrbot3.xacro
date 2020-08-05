@@ -110,13 +110,13 @@
     </inertial>
   </link>
   <!-- Gripper Link -->>
-  <link name="left_gripper">    
-    <visual>      
-    <origin rpy="0 0 0" xyz="0 0 0"/>      
-    <geometry>       
-    <mesh filename="package://pr2_description/meshes/l_finger.dae"/>     
-        </geometry>    
-        </visual> 
+    <link name="left_gripper">    
+      <visual>      
+      <origin rpy="0 0 0" xyz="0 0 0"/>      
+      <geometry>       
+      <mesh filename="package://pr2_common/meshes/l_finger.dae"/>     
+          </geometry>    
+          </visual> 
 
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
