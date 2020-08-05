@@ -34,11 +34,12 @@
     <xacro:default_inertial z_value="${height1/2}"               
                  i_value="1.0" mass="1"/> 
     <visual>
+     <material name="blue"/>
       <origin rpy="0 0 0" xyz="0 0 1.0"/>
       <geometry>
         <box size="0.1 0.1 2"/>
       </geometry>
-      <material name="blue"/>
+     
     </visual>
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 1.0"/>
