@@ -6,7 +6,9 @@
 <!-- Revolute-Revolute Manipulator -->
 <robot name="rrbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
  <!-- Import Rviz colors -->  
- <xacro:include   filename="$(find test_robot)/urdf/materials.xacro" />
+ <xacro:include  filename="$(find test_robot)/urdf/materials.xacro" />
+ <xacro:include filename="$(find test_robot)/urdf/rrbot.gazebo"/>
+ 
   <!-- Default Inertial -->  
   <xacro:macro name="default_inertial" params="z_value i_value mass">    
   <inertial>      
@@ -33,7 +35,7 @@
     <xacro:default_inertial z_value="${height1/2}"               
                  i_value="1.0" mass="1"/> 
     <visual>
-     <material name="blue"/>
+     <material name="red"/>
       <origin rpy="0 0 0" xyz="0 0 1.0"/>
       <geometry>
         <box size="0.1 0.1 2"/>
@@ -67,7 +69,7 @@
       <geometry>
         <box size="0.1 0.1 1"/>
       </geometry>
-      <material name="red"/>
+      <material name="green"/>
     </visual>
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0.45"/>
@@ -96,7 +98,7 @@
       <geometry>
         <box size="0.1 0.1 1"/>
       </geometry>
-      <material name="green"/>
+      <material name="blue"/>
     </visual>
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0.45"/>
