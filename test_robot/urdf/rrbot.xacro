@@ -20,7 +20,7 @@
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Orange</material>
-       </gazebo>
+    </gazebo>
     <material name="black">
     <color rgba="0.0 0.0 0.0 1.0"/>
    </material>
