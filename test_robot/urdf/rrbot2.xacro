@@ -5,7 +5,7 @@
 <!-- =================================================================================== -->
 <!-- Revolute-Revolute Manipulator -->
  <xacro:include  filename="$(find test_robot)/urdf/materials.xacro" />
- <xacro:include filename="$(find test_robot)/urdf/rrbot.gazebo"/>
+
 <robot name="rrbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
  <!-- Import Rviz colors -->  
 
