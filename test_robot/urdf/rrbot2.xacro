@@ -4,10 +4,13 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <!-- Revolute-Revolute Manipulator -->
- <xacro:include  filename="$(find test_robot)/urdf/materials.xacro" />
+ 
 
 <robot name="rrbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
  <!-- Import Rviz colors -->  
+<xacro:include  filename="$(find ros_ArmSim)/urdf/materials.xacro" />
+
+
 
  
   <!-- Default Inertial -->  
