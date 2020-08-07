@@ -908,6 +908,7 @@ roslaunch simulations testrobot_gazebo.launch
 
 ## Step 24: Moving The Robot
 
+
 Now that the robot has been simulated in gazebo we need to start with making the robot move. The first step is using the differntial drive pulgin that comes with ROS. You need to copy and paste this code into the gazebo file for the test robot
 ```
 <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
@@ -1093,3 +1094,146 @@ If you have a different folder to store your files in. use that folder location 
 
 
 
+
+## Step 25: Using .xacro Files
+  Xacro files are xml macro files. These files allow us to set up certain settings, for example we can have .xacro file dedicated for materials or a prebuilt file and allow you to easily integrate it into your own file.
+
+  Here is your first xacro file 
+  ```
+<?xml version="1.0" ?>
+
+<!-- Revolute-Revolute Manipulator -->
+<robot name="rrbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Used for fixing robot to Gazebo 'base_link' -->
+  <link name="world"/>
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="link1"/>
+  </joint>
+  <!-- Base Link -->
+  <link name="link1">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 1.0"/>
+      <geometry>
+        <box size="0.1 0.1 2"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 1.0"/>
+      <geometry>
+        <box size="0.1 0.1 2"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 1.0"/>
+      <mass value="1"/>
+      <inertia ixx="0.334166666667" ixy="0.0" ixz="0.0" iyy="0.334166666667" iyz="0.0" izz="0.00166666666667"/>
+    </inertial>
+  </link>
+  <joint name="joint1" type="continuous">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin rpy="0 0 0" xyz="0 0.1 1.95"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  <!-- Middle Link -->
+  <link name="link2">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.45"/>
+      <geometry>
+        <box size="0.1 0.1 1"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.45"/>
+      <geometry>
+        <box size="0.1 0.1 1"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.45"/>
+      <mass value="1"/>
+      <inertia ixx="0.0841666666667" ixy="0.0" ixz="0.0" iyy="0.0841666666667" iyz="0.0" izz="0.00166666666667"/>
+    </inertial>
+  </link>
+  <joint name="joint2" type="continuous">
+    <parent link="link2"/>
+    <child link="link3"/>
+    <origin rpy="0 0 0" xyz="0 0.1 0.9"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  <!-- Top Link -->
+  <link name="link3">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.45"/>
+      <geometry>
+        <box size="0.1 0.1 1"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.45"/>
+      <geometry>
+        <box size="0.1 0.1 1"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.45"/>
+      <mass value="1"/>
+      <inertia ixx="0.0841666666667" ixy="0.0" ixz="0.0" iyy="0.0841666666667" iyz="0.0" izz="0.00166666666667"/>
+    </inertial>
+  </link>
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>
+  ```
+  Name it rrbot.xacro. This next bit of code will be the launch file
+  ```
+
+<launch>
+   <!-- values passed by command line input -->     
+   <arg name="model" />
+   <arg name="gui" default="False" />
+
+   <!-- set these parameters on Parameter Server -->
+   <param name="robot_description" textfile="$(find test_robot)/urdf/$(arg model)" />
+   <param name="use_gui" value="$(arg gui)"/>
+
+   <!-- Start 3 nodes: joint_state_publisher, robot_state_publisher and rviz -->
+   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find test_robot)/urdf" required="true" />
+   <!-- (required = "true") if rviz dies, entire roslaunch will be killed -->
+</launch>
+  ```
+
+  Name this rrbot_rviz.launch
+
+  You can launch the rrbot in the terminal by typing this in console
+  ```
+  $roslaunch test_robot rrbot_rviz.launch model:=rrbot.xacro
+  ```
