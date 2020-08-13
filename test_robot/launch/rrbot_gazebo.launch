@@ -14,6 +14,6 @@
 
   <!-- Spawn test_robot into Gazebo -->
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen"
-     args="-file $(find test_robot)/urdf/rrbot.gazebo -urdf -model rrbot" />
+     args="-file $(find test_robot)/urdf/rrbot2.xacro -urdf -model rrbot" />
 
 </launch>

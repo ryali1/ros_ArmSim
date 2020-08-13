@@ -1,5 +1,7 @@
 <?xml version="1.0"?> 
+
 <robot>
+
   <!-- Base Link --> 
    <gazebo reference="link1">    
    <material>Gazebo/Red</material>  
@@ -9,10 +11,14 @@
   <gazebo reference="link2">    
   <mu1>0.2</mu1>    
   <mu2>0.2</mu2>   
-   <material>Gazebo/Green</material>  
-   </gazebo>
+  <material>Gazebo/Green</material>  
+  </gazebo>
+
   <!-- Top Link --> 
    <gazebo reference="link3">    
    <mu1>0.2</mu1>    
    <mu2>0.2</mu2>    
    <material>Gazebo/Blue</material>
+   </gazebo>
+
+  </robot>
