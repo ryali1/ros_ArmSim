@@ -5,6 +5,24 @@
 <!-- =================================================================================== -->
 <!-- Revolute-Revolute Manipulator -->
 <robot name="rrbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>20</updateRate>
+      <leftJoint>link2</leftJoint>
+      <rightJoint>link2</rightJoint>
+      <wheelSeparation>0.42</wheelSeparation>
+      <wheelDiameter>0.3048</wheelDiameter>
+      <torque>20</torque>
+      <commandTopic>/cmd_vel</commandTopic>
+      <odometryTopic>/lawnbot/odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+    </plugin>
+  </gazebo>
+
   <!-- Link1 -->
   <gazebo reference="link1">
     <material>Gazebo/Orange</material>
